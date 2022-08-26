@@ -98,12 +98,36 @@ class User extends CI_Model
     }
     public function getcarsinfo($register_id , $role)
     {
-        if($role == 'agency') {
+        if($role === 'agency') {
 
             return $this->db->get_where('vehicles_info', array('owner_id' => $register_id, 'booked' => 0))->result_array();
         } else {
 
             return $this->db->get_where('vehicles_info', array('booked' => 0))->result_array();
+        }
+    }
+    public function notavailable($car_id)
+    {
+        $sql1 = $this->db->get_where('vehicles_info', array('id' => $car_id , 'booked' => 0));
+        if($sql1->num_rows() > 0) {
+
+           return 0;
+        }
+        else
+        {
+            return 1;
+        }
+    }
+    public function checkcarowner($car_id,$owner_id)
+    {
+        $sql1 = $this->db->get_where('vehicles_info', array('id' => $car_id , 'owner_id' => $owner_id));
+        if($sql1->num_rows() > 0) {
+
+           return 0;
+        }
+        else
+        {
+            return 1;
         }
     }
 
