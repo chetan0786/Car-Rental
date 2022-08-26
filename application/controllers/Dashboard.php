@@ -27,6 +27,10 @@ class Dashboard extends CI_Controller
 
     function book_car($car_id)
     {
+        if($this->User->notavailable($car_id))
+        {
+            redirect('dashboard');
+        }
         if($this->session->has_userdata('id')) {
 
 			$data['car'] = $this->User->getcardetails($car_id);
@@ -39,6 +43,10 @@ class Dashboard extends CI_Controller
     }
     function edit_car($car_id)
     {
+        if($this->User->checkcarowner($car_id,$this->session->userdata('id')))
+        {
+            redirect('dashboard');
+        }
         if($this->session->has_userdata('id')) {
 
 			$data['car'] = $this->User->getcardetails($car_id);

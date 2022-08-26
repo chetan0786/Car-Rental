@@ -33,7 +33,6 @@ class AddCars extends CI_Controller
             echo 'Car already present';
         }
         else{
-            echo 'Car Added';
             redirect('dashboard');
         }
     }
